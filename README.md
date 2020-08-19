@@ -1,5 +1,5 @@
 # unity-ragdoll-culler
-A simple component that makes culling ragdolls possible
+A simple component that makes culling ragdolls possible, as well as very performant!
 
 
 ## How it works
