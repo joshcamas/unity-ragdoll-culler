@@ -38,39 +38,36 @@ namespace Ardenfall.Animation
             }
 
             SetIsSleeping(false);
-            StartCoroutine(SlowUpdateLoop());
         }
-
-        private IEnumerator SlowUpdateLoop()
+        
+        private void Update()
         {
-            while(true)
+            bool toggle = !isSleeping;
+
+            for(int i = 0; i < rigidbodies.Length; i++)
             {
-                bool toggle = !isSleeping;
-
-                for(int i = 0; i < rigidbodies.Length; i++)
+                if(isSleeping && !rigidbodies[i].IsSleeping())
                 {
-                    if(isSleeping && !rigidbodies[i].IsSleeping())
-                    {
-                        toggle = true;
-                        break;
-                    }
-
-                    if (!isSleeping && !rigidbodies[i].IsSleeping())
-                    {
-                        toggle = false;
-                        break;
-                    }
+                    toggle = true;
+                    break;
                 }
 
-                if(toggle)
-                    SetIsSleeping(!isSleeping);
-
-                yield return null;
+                if (!isSleeping && !rigidbodies[i].IsSleeping())
+                {
+                    toggle = false;
+                    break;
+                }
             }
+
+            if(toggle)
+                SetIsSleeping(!isSleeping);
         }
 
         private void SetIsSleeping(bool sleeping)
         {
+            if(isSleeping == sleeping)
+                return;
+                
             isSleeping = sleeping;
 
             for (int i = 0; i < renderers.Length; i++)
