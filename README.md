@@ -1,5 +1,5 @@
 # unity-ragdoll-culler
-A simple component that makes culling ragdolls possible, as well as very performant!
+A simple component that makes culling ragdolls possible, as well as very performant! When ragdolls stop moving, they become a normal mesh, until they start moving again. 
 
 
 ## How it works
