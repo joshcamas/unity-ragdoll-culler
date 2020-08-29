@@ -14,6 +14,15 @@ namespace Ardenfall.Animation
 
         private void OnEnable()
         {
+            Initiate();
+        }
+
+        /// <summary>
+        /// Performs scan on existing skinned mesh renderers and rigidbodies,
+        /// And creates their normal mesh object counterparts
+        /// </summary>
+        public void Initiate()
+        {
             rigidbodies = GetComponentsInChildren<Rigidbody>();
             renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
 
@@ -39,14 +48,14 @@ namespace Ardenfall.Animation
 
             SetIsSleeping(false);
         }
-        
+
         private void Update()
         {
             bool toggle = !isSleeping;
 
-            for(int i = 0; i < rigidbodies.Length; i++)
+            for (int i = 0; i < rigidbodies.Length; i++)
             {
-                if(isSleeping && !rigidbodies[i].IsSleeping())
+                if (isSleeping && !rigidbodies[i].IsSleeping())
                 {
                     toggle = true;
                     break;
@@ -59,15 +68,15 @@ namespace Ardenfall.Animation
                 }
             }
 
-            if(toggle)
+            if (toggle)
                 SetIsSleeping(!isSleeping);
         }
 
         private void SetIsSleeping(bool sleeping)
         {
-            if(isSleeping == sleeping)
+            if (isSleeping == sleeping)
                 return;
-                
+
             isSleeping = sleeping;
 
             for (int i = 0; i < renderers.Length; i++)
@@ -79,7 +88,7 @@ namespace Ardenfall.Animation
                 {
                     renderers[i].BakeMesh(bakedMeshFilters[i].sharedMesh);
                     bakedMeshFilters[i].sharedMesh.RecalculateBounds();
-                } 
+                }
 
             }
 
